@@ -27,29 +27,50 @@ const invoiceInitial = {
 };
 
 export const InvoiceApp = () => {
+    //Estados
+    const [invoice, setInvoice] = useState(invoiceInitial); //Factura
 
-    const [invoice, setInvoice] = useState(invoiceInitial);
+    const [items, setItems] = useState([]); //Items de la factura
 
-    const [items, setItems] = useState([]);
-
-    useEffect(() => {
-        const data = getInvoice();
-        console.log(data);
-        setInvoice(data);
-        setItems(data.items);
-    }, []);
-
-    const { total, id, name, client, company, items: itemsInitial } = invoice;
-
-    const [formItemsState, setFormItemsState] = useState({
+    const [formItemsState, setFormItemsState] = useState({ //Formulario
         product: '',
         price: '',
         quantity: '',
     });
+    const [counter, setCounter] = useState(0); //contador de items
 
+    //Desectructuración
+    const { total, id, name, client, company} = invoice;
     const { product, price, quantity } = formItemsState;
+
+    //Efectos
+    useEffect(() => {
+        const data = getInvoice();
+        // console.log(data);
+        setInvoice(data);
+        setItems(data.items);
+        setCounter(data.items+1);
+    }, []); //se dispara una sola vez cuando se crea el componente por []
+
+    useEffect( () => {
+        // console.log('el precio cambio');
+    },[price]); // se dispara cada vez que se cambia el estado de precio
+
+    useEffect( () => {
+        // console.log('el formItemsState cambio');
+    },[formItemsState]); // se dispara cada vez que se cambia el estado de algun campo del formulario
+
+    useEffect( () => {
+        // console.log('el counter cambio');
+    },[counter]); // se dispara cada vez que se cambia el estado del contador
+
+    useEffect( () => {
+        console.log('Los items cambiaron cambio');
+    },[items]); // se dispara cada vez que se cambia el estado de los items
+
+    //UseEffect esta relaciona con UseStae
+
  
-    const [counter, setCounter] = useState(4);
 
     const onInputChange = ({ target: { name, value } }) => {
         // console.log(name);
@@ -83,7 +104,7 @@ export const InvoiceApp = () => {
             id: counter,
             product: product.trim(),
             price: +price.trim(),
-            quantity: parseInt(quantity.trim(), 10)
+            quantity: +quantity.trim(),
         }]);
 
         setFormItemsState({
