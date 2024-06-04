@@ -1,11 +1,11 @@
 import { RowItemView } from "./RowItemView"
 import PropTypes from 'prop-types';
 
-export const ListItemsView = ({title, items}) => {
+export const ListItemsView = ({ title, items, handlerRemoveItem }) => {
 
     return (
         <>
-            <h4>{ title }</h4>
+            <h4>{title}</h4>
             <table className="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -16,7 +16,14 @@ export const ListItemsView = ({title, items}) => {
                 </thead>
                 <tbody>
                     {items.map(({ id, product, price, quantity }) => (
-                        <RowItemView key={ id } product={ product } price={ price } quantity={ quantity } />
+                        <RowItemView
+                            id={id}
+                            key={id}
+                            product={product}
+                            price={price}
+                            quantity={quantity}
+                            handlerRemoveItem={id => handlerRemoveItem(id)}
+                        />
                     ))}
                 </tbody>
             </table>
