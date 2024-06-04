@@ -37,10 +37,13 @@ export const InvoiceApp = () => {
         price: '',
         quantity: '',
     });
+   
     const [counter, setCounter] = useState(0); //contador de items
 
+    const [total, setTotal] = useState(0); //Total de la factura
+
     //Desectructuración
-    const { total, id, name, client, company} = invoice;
+    const {  id, name, client, company} = invoice;
     const { product, price, quantity } = formItemsState;
 
     //Efectos
@@ -49,7 +52,10 @@ export const InvoiceApp = () => {
         // console.log(data);
         setInvoice(data);
         setItems(data.items);
-        setCounter(data.items+1);
+        setCounter(data.items.length+1);
+        setTotal(data.items
+            .map(item => item.price * item.quantity)
+            .reduce((accumulator, currentValue) => accumulator + currentValue, 0));
     }, []); //se dispara una sola vez cuando se crea el componente por []
 
     useEffect( () => {
@@ -65,7 +71,11 @@ export const InvoiceApp = () => {
     },[counter]); // se dispara cada vez que se cambia el estado del contador
 
     useEffect( () => {
-        console.log('Los items cambiaron cambio');
+        //Actualiazmos el total
+        // console.log('Se alteraron los items');
+        setTotal(items
+            .map(item => item.price * item.quantity)
+            .reduce((accumulator, currentValue) => accumulator + currentValue, 0));
     },[items]); // se dispara cada vez que se cambia el estado de los items
 
     //UseEffect esta relaciona con UseStae
