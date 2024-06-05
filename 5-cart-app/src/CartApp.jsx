@@ -6,7 +6,7 @@ export const CartApp = () => {
 
             <div className="container">
 
-                <h3>Cart App</h3>
+                <h3>Carrito de la Compra App</h3>
                 <div className="row">
                     <div className="col-4 my-2">
                         <div className="card">
