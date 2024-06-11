@@ -19,15 +19,20 @@ export const CartApp = () => {
 
     //Funciones
     const handlerAddProductCart = (product) => {
-
-        setCartItems([...cartItems,
-        {
-            id: product.id,
-            product,
-            quantity: 1,
-            total: product.price * product.quantity,
+        let itemF={};
+        if (itemF=cartItems.find(item => item.product.id === product.id)) {
+            itemF.product.quantity=2;
+            console.log(itemF);
+        } else {
+            setCartItems([...cartItems,
+            {
+                id: product.id,
+                product,
+                quantity: 1,
+                total: product.price * product.quantity,
+            }
+            ]);
         }
-        ]);
     }
 
     return (
