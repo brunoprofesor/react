@@ -18,19 +18,19 @@ export const CartApp = () => {
     //Efectos
 
     //Funciones
+    //Añadir pruductos al carrito
     const handlerAddProductCart = (product) => {
-        const hasItem=cartItems.find((i) => i.product.id === product.id);
-        console.log(cartItems);
+        const hasItem = cartItems.find((i) => i.product.id === product.id);
         if (hasItem) {
             setCartItems(
                 cartItems.map((i) => {
-                    if(i.id === product.id){
+                    if (i.id === product.id) {
                         i.quantity = i.quantity + 1;
                     }
                     return i;
                 })
             )
-            
+
         } else {
             setCartItems([...cartItems,
             {
@@ -42,17 +42,30 @@ export const CartApp = () => {
             ]);
         }
     }
+    //Borrar productos del carrito
+    const handlerDeleteProductCart = (id) => {
+        setCartItems(cartItems.filter(i => i.id !== id));
+    }
 
     return (
         <>
 
             <div className="container">
                 <CatalogView handler={handlerAddProductCart} />
+                
+                {
+                    cartItems?.length <= 0 || (
+                        <div className="my-4 w-50">
+                            <CartView items={cartItems} handler={handlerDeleteProductCart} />
+                        </div>
+                        )
+                        // console.log(cartItems.length);
+                    
+                }
 
 
-                <div className="my-4 w-50">
-                    <CartView items={cartItems} />
-                </div>
+
+
             </div>
         </>
     )

@@ -1,6 +1,9 @@
 
 
-export const CartView = ({ items }) => {
+export const CartView = ({ items, handler }) => {
+    const onDeleteItem =  (id) => {
+        handler(id);
+    }
     return (
         <>
             <h3>Carro de compras</h3>
@@ -21,14 +24,20 @@ export const CartView = ({ items }) => {
                             <td>{item.product.price}</td>
                             <td>{item.quantity}</td>
                             <td>{item.product.price * item.quantity}</td>
-                            <td>eliminar</td>
+                            <td><button 
+                            className="btn btn-danger" 
+                            onClick={()=> onDeleteItem(item.product.id)}
+                            >Eliminar</button></td>
                         </tr>
                     )}
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colSpan={3} className="text-end fw-bold">Total</td>
-                        <td colSpan={2} className="text-strat fw-bold">12345</td>
+                        <td colSpan={2} className="text-strat fw-bold">{
+                            items.reduce((accumulator, currentValue) => accumulator + currentValue.quantity * currentValue.product.price,
+                            0,)
+                            }</td>
                     </tr>
 
                 </tfoot>
