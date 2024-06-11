@@ -19,9 +19,17 @@ export const CartApp = () => {
 
     //Funciones
     const handlerAddProductCart = (product) => {
-        let index=0;
-        if (index=cartItems.findIndex(item => item.product.id === product.id)) {
-            setCartItems([])
+        const hasItem=cartItems.find((i) => i.product.id === product.id);
+        console.log(cartItems);
+        if (hasItem) {
+            setCartItems(
+                cartItems.map((i) => {
+                    if(i.id === product.id){
+                        i.quantity = i.quantity + 1;
+                    }
+                    return i;
+                })
+            )
             
         } else {
             setCartItems([...cartItems,
