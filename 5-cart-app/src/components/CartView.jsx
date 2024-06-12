@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { calculateTotal } from '../services/productService'
 
 
-export const CartView = ({ items, handler, handlerChange }) => {
+export const CartView = ({ items, handler }) => {
     //Estados
     const [total, setTotal] = useState(0);
 
     //Efectos
     useEffect(
         () => {
+            sessionStorage.setItem("cart", JSON.stringify(items));
             setTotal(
                 calculateTotal(items)
                 )

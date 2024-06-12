@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import { CartView } from "./components/CartView";
 import { CatalogView } from "./components/CatalogView";
-import { products } from "./data/products";
 
 
-const initialCartItems = [
-    // {
-    //     product: {},
-    //     quantity: 0,
-    //     total: 0
 
-    // }
-];
+const initialCartItems = JSON.parse(sessionStorage.getItem("cart"));
+
 export const CartApp = () => {
 
     //Estados
-    const [cartItems, setCartItems] = useState(initialCartItems);
+    const [cartItems, setCartItems] = useState(initialCartItems || []);
     //Efectos
-    
+    useEffect(
+        ()=>{
+            if(cartItems.length===0) sessionStorage.removeItem('cart');
+        }
+        ,[cartItems]
+    )
+
 
 
     //Funciones
@@ -48,9 +48,10 @@ export const CartApp = () => {
     //Borrar productos del carrito
     const handlerDeleteProductCart = (id) => {
         setCartItems(cartItems.filter(i => i.id !== id));
+
     }
 
-    
+
 
 
     return (
@@ -61,12 +62,12 @@ export const CartApp = () => {
 
                 {
                     cartItems?.length ? (
-                    <div className="my-4 w-50">
-                        <CartView items={cartItems} handler={handlerDeleteProductCart} />
-                    </div>
+                        <div className="my-4 w-50">
+                            <CartView items={cartItems} handler={handlerDeleteProductCart} />
+                        </div>
                     ) : false
                 }
-                
+
                 {/* {
                     cartItems?.length <= 0 || (
                         <div className="my-4 w-50">
