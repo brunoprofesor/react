@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { CartView } from "./components/CartView";
 import { CatalogView } from "./components/CatalogView";
+import { itemsReducer } from "./reducer/itemsReducer";
 
 
 
@@ -10,6 +11,8 @@ export const CartApp = () => {
 
     //Estados
     const [cartItems, setCartItems] = useState(initialCartItems || []);
+    //Reducer
+    const [cartItems, dispatch] = useReducer(itemsReducer)
     //Efectos
     useEffect(
         ()=>{
