@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CartView } from "./components/CartView";
 import { CatalogView } from "./components/CatalogView";
+import { products } from "./data/products";
 
 
 const initialCartItems = [
@@ -16,6 +17,8 @@ export const CartApp = () => {
     //Estados
     const [cartItems, setCartItems] = useState(initialCartItems);
     //Efectos
+    
+
 
     //Funciones
     //Añadir pruductos al carrito
@@ -47,13 +50,24 @@ export const CartApp = () => {
         setCartItems(cartItems.filter(i => i.id !== id));
     }
 
+    
+
+
     return (
         <>
 
-            <div className="container">
+            <div className="container my-4">
                 <CatalogView handler={handlerAddProductCart} />
-                
+
                 {
+                    cartItems?.length ? (
+                    <div className="my-4 w-50">
+                        <CartView items={cartItems} handler={handlerDeleteProductCart} />
+                    </div>
+                    ) : false
+                }
+                
+                {/* {
                     cartItems?.length <= 0 || (
                         <div className="my-4 w-50">
                             <CartView items={cartItems} handler={handlerDeleteProductCart} />
@@ -61,7 +75,7 @@ export const CartApp = () => {
                         )
                         // console.log(cartItems.length);
                     
-                }
+                } */}
 
 
 
