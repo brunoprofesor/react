@@ -9,7 +9,7 @@ export const CartView = ({ items, handler }) => {
     //Efectos
     useEffect(
         () => {
-            sessionStorage.setItem("cart", JSON.stringify(items));
+            // sessionStorage.setItem("cart", JSON.stringify(items));
             setTotal(
                 calculateTotal(items)
                 )
