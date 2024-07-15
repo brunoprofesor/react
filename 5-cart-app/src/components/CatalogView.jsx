@@ -17,7 +17,7 @@ export const CatalogView = ({handler}) => {
 
   return (
     <>
-      <h3>Carrito de la Compra App</h3>
+      
       <div className="row">
         {products.map(({ id, name, description, price }) => (
 
